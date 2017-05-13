@@ -9,11 +9,33 @@
 
 <body>
   <div class="container" ic-sse-src="/sse">
-    <ul ic-get-from="/room/list" ic-trigger-on="sse:update:room:list"></ul>
-
-    <form ic-post-to="/room">
-      <input type="text" name="name" placeholder="new room name" required>
-    </form>
+    <div class="row">
+      <div class="column column-50 column-offset-25">
+        <h1>Planning Poker</h1>
+        <h3>Room List</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column column-50 column-offset-25">
+        <table ic-get-from="/room/list" ic-trigger-on="sse:update:room:list" ic-replace-target="true">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Users</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="column column-50 column-offset-25">
+        <form ic-post-to="/room">
+          <input type="text" name="name" placeholder="new room name" required>
+        </form>
+      </div>
+    </div>
   </div>
 
   <script src="/js/zepto.min.js"></script>

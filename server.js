@@ -49,15 +49,16 @@ app.get('/:name/sse', (req, res) => {
   client.onClose(() => {
     if (room.clients.length === 1) {
       removeFromArray(state.rooms, room)
-      sendEventTo(state.homepageClients, 'update:room:list')
     } else {
       removeFromArray(room.clients, client)
       sendEventTo(room.clients, 'update:user:count')
     }
+    sendEventTo(state.homepageClients, 'update:room:list')
   })
   sendEventTo(room.clients, 'update:user:count')
   sendEventTo(client, 'update:task')
   sendEventTo(client, 'update:submissions')
+  sendEventTo(state.homepageClients, 'update:room:list')
 })
 
 app.get('/:name/user/count', sendView(views.room.userCount))
