@@ -1,3 +1,4 @@
+const task = require('./task')
 const reset = require('./submissions/reset')
 
 module.exports = (room) => `
@@ -9,11 +10,11 @@ module.exports = (room) => `
     </head>
     <body>
       <div class="container" ic-sse-src="/${room.name}/sse">
-        <h1>${room.name}</h1>
-        <h2 ic-src="/${room.name}/user/count" ic-trigger-on="sse:update:user:count"></h2>
-        <blockquote ic-get-from='/${room.name}/task/edit' ic-replace-target="true">
-          <p ic-src="/${room.name}/task" ic-trigger-on="sse:update:task"></p>
-        </blockquote>
+        <div class="clearfix">
+          <h1 class="float-left">${room.name}</h1>
+          <h3 class="float-right" style="line-height: 55px;" ic-src="/${room.name}/user/count" ic-trigger-on="sse:update:user:count"></h3>
+        </div>
+        ${task(room)}
         <button ic-post-to="/${room.name}/reveal">Reveal</button>
         <div ic-get-from="/${room.name}/submissions/reset" ic-trigger-on="sse:submissions:reset">
           ${reset(room)}
