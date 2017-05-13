@@ -11,7 +11,7 @@ module.exports = (req) => {
       submissions: []
     }
     state.rooms.push(room)
-    sendEventTo(state.homepageClients, null, 'update:room:list')
+    sendEventTo(state.homepageClients, 'update:room:list')
   }
   return room
 }
