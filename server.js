@@ -6,14 +6,7 @@ const sendEventTo = require('./helpers/sendEventTo')
 const getOrCreateRoom = require('./helpers/getOrCreateRoom')
 const sendView = require('./helpers/sendView')
 
-const roomListView = require('./views/home/room-list')
-const roomView = require('./views/room')
-const userCountView = require('./views/room/user-count')
-const taskView = require('./views/room/task')
-const taskInnerView = require('./views/room/task/inner')
-const taskEditView = require('./views/room/task/edit')
-const submissionView = require('./views/room/submissions')
-
+const views = require('./views')
 const state = require('./helpers/state')
 
 ///////////////
@@ -31,7 +24,7 @@ app.get('/sse', (req, res) => {
   sendEventTo(client, 'update:room:list')
 })
 
-app.get('/room/list', (_, res) => res.send(roomListView(state.rooms)))
+app.get('/room/list', (_, res) => res.send(views.home.roomList(state.rooms)))
 
 app.post('/room', (req, res) => {
   res.set('X-IC-Redirect', `/${req.body.name}`)
@@ -44,7 +37,7 @@ app.post('/room', (req, res) => {
 
 app.get('/:name', (req, res) => {
   if (req.params.name !== 'favicon.ico')
-    sendView(roomView)(req, res)
+    sendView(views.room.index)(req, res)
   else
     res.send('')
 })
@@ -67,24 +60,24 @@ app.get('/:name/sse', (req, res) => {
   sendEventTo(client, 'update:submissions')
 })
 
-app.get('/:name/user/count', sendView(userCountView))
+app.get('/:name/user/count', sendView(views.room.userCount))
 
-app.get('/:name/task', sendView(taskInnerView))
+app.get('/:name/task', sendView(views.room.task.inner))
 
-app.get('/:name/task/full', sendView(taskView))
+app.get('/:name/task/full', sendView(views.room.task.index))
 
 app.post('/:name/task', (req, res) => {
   const room = getOrCreateRoom(req)
   room.task = req.body.task
   room.submissions = []
-  res.send(taskView(room))
+  res.send(views.room.task.index(room))
   sendEventTo(room.clients, 'update:task')
   sendEventTo(room.clients, 'update:submissions')
 })
 
-app.get('/:name/task/edit', sendView(taskEditView))
+app.get('/:name/task/edit', sendView(views.room.task.edit))
 
-app.get('/:name/submissions', sendView(submissionView))
+app.get('/:name/submissions', sendView(views.room.submissions))
 
 app.post('/:name/submissions', (req, res) => {
   const room = getOrCreateRoom(req)
