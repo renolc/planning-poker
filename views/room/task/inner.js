@@ -1,0 +1,1 @@
+module.exports = (room) => `<p ic-src="/${room.name}/task" ic-trigger-on="sse:update:task">${room.task || '<em>click to edit</em>'}</p>`

@@ -4,8 +4,13 @@ const app = require('./helpers/app')
 const removeFromArray = require('./helpers/removeFromArray')
 const sendTo = require('./helpers/sendTo')
 
+const roomListView = require('./views/home/room-list')
 const roomView = require('./views/room')
-const userCountView = require('./views/user-count')
+const userCountView = require('./views/room/user-count')
+const taskView = require('./views/room/task')
+const taskInnerView = require('./views/room/task/inner')
+const taskEditView = require('./views/room/task/edit')
+const submissionView = require('./views/room/submissions')
 
 const homepageClients = []
 const rooms = []
@@ -28,7 +33,7 @@ const getOrCreateRoom = (name) => {
 // homepage  //
 ///////////////
 
-app.get('/', (_, res) => res.sendFile(__dirname+'/views/index.html'))
+app.get('/', (_, res) => res.sendFile(__dirname+'/views/home/index.html'))
 
 app.get('/sse', (req, res) => {
   const client = SSE(req, res)
@@ -39,9 +44,7 @@ app.get('/sse', (req, res) => {
   client.send(null, 'update:room:list')
 })
 
-app.get('/room/list', (_, res) => res.send(rooms
-  .map((room) => `<li>${room.name}</li>`)
-  .join('') || '  '))
+app.get('/room/list', (_, res) => res.send(roomListView(rooms)))
 
 app.post('/room', (req, res) => {
   res.set('X-IC-Redirect', `/${req.body.name}`)
@@ -79,44 +82,31 @@ app.get('/:name/user/count', (req, res) => {
 
 app.get('/:name/task', (req, res) => {
   const room = getOrCreateRoom(req.params.name)
-  res.send(`<p ic-src="/${room.name}/task" ic-trigger-on="sse:update:task">${room.task || '<em>click to edit</em>'}</p>`)
+  res.send(taskInnerView(room))
 })
 
 app.get('/:name/task/full', (req, res) => {
   const room = getOrCreateRoom(req.params.name)
-  res.send(`
-    <blockquote ic-get-from='/${room.name}/task/edit' ic-replace-target="true">
-      <p ic-src="/${room.name}/task" ic-trigger-on="sse:update:task">${room.task || '<em>click to edit</em>'}</p>
-    </blockquote>
-  `)
+  res.send(taskView(room))
 })
 
 app.post('/:name/task', (req, res) => {
   const room = getOrCreateRoom(req.params.name)
   room.task = req.body.task
   room.submissions = []
-  res.send(`
-    <blockquote ic-get-from='/${room.name}/task/edit' ic-replace-target="true">
-      <p ic-src="/${room.name}/task" ic-trigger-on="sse:update:task">${room.task || '<em>click to edit</em>'}</p>
-    </blockquote>
-  `)
+  res.send(taskView(room))
   sendTo(room.clients, null, `update:task`)
   sendTo(room.clients, null, `update:submissions`)
 })
 
 app.get('/:name/task/edit', (req, res) => {
   const room = getOrCreateRoom(req.params.name)
-  res.send(`
-    <form id="task-edit-form" ic-post-to="/${room.name}/task" ic-replace-target="true">
-      <textarea name="task" cols="30" rows="10" autofocus>${room.task || ''}</textarea>
-      <input type="submit"> <a class="button button-clear" ic-get-from="/${room.name}/task/full" ic-target="#task-edit-form" ic-replace-target="true">cancel</a>
-    </form>
-  `)
+  res.send(taskEditView(room))
 })
 
 app.get('/:name/submissions', (req, res) => {
   const room = getOrCreateRoom(req.params.name)
-  res.send(room.submissions.map((i) => `<li>${i.name}</li>`).join('') || '  ')
+  res.send(submissionView(room.submissions))
 })
 
 app.post('/:name/submissions', (req, res) => {
