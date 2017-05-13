@@ -12,8 +12,8 @@ module.exports = (room) => `
         <blockquote ic-get-from='/${room.name}/task/edit' ic-replace-target="true">
           <p ic-src="/${room.name}/task" ic-trigger-on="sse:update:task"></p>
         </blockquote>
-        <ul ic-src="/${room.name}/scores" ic-trigger-on="sse:update:scores"></ul>
-        <form ic-post-to="/${room.name}/scores">
+        <ul id="submissions" ic-src="/${room.name}/submissions" ic-trigger-on="sse:update:submissions"></ul>
+        <form ic-post-to="/${room.name}/submissions">
           <input type="text" name="name" placeholder="your name" required>
           <input type="number" name="score" required>
           <input type="submit">

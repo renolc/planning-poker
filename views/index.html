@@ -8,8 +8,8 @@
 </head>
 
 <body>
-  <div class="container">
-    <ul ic-sse-src="/sse"></ul>
+  <div class="container" ic-sse-src="/sse">
+    <ul ic-get-from="/room/list" ic-trigger-on="sse:update:room:list"></ul>
 
     <form ic-post-to="/room">
       <input type="text" name="name" placeholder="new room name" required>
