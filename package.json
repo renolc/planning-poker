@@ -1,0 +1,21 @@
+{
+  "name": "planning-poker",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [],
+  "author": "Phillip Gibson <gibson.phillip.j@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "pouchdb-node": "^6.2.0",
+    "sse-node": "^1.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
