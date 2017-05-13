@@ -72,12 +72,14 @@ app.post('/:name/task', (req, res) => {
   room.submissions = []
   res.send(views.room.task.index(room))
   sendEventTo(room.clients, 'update:task')
-  sendEventTo(room.clients, 'update:submissions')
+  sendEventTo(room.clients, 'submissions:reset')
 })
 
 app.get('/:name/task/edit', sendView(views.room.task.edit))
 
-app.get('/:name/submissions', sendView(views.room.submissions))
+app.get('/:name/submissions', sendView(views.room.submissions.index))
+
+app.get('/:name/submissions/reset', sendView(views.room.submissions.reset))
 
 app.post('/:name/submissions', (req, res) => {
   const room = getOrCreateRoom(req)
@@ -88,6 +90,14 @@ app.post('/:name/submissions', (req, res) => {
   res.send('')
   sendEventTo(room.clients, 'update:submissions')
 })
+
+app.post('/:name/reveal', (req, res) => {
+  const room = getOrCreateRoom(req)
+  res.send('')
+  sendEventTo(room.clients, 'reveal')
+})
+
+app.get('/:name/scores', sendView(views.room.reveal))
 
 //////////
 // 404 ///

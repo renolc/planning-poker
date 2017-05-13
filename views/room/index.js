@@ -1,3 +1,5 @@
+const reset = require('./submissions/reset')
+
 module.exports = (room) => `
   <!doctype html>
   <html>
@@ -12,7 +14,10 @@ module.exports = (room) => `
         <blockquote ic-get-from='/${room.name}/task/edit' ic-replace-target="true">
           <p ic-src="/${room.name}/task" ic-trigger-on="sse:update:task"></p>
         </blockquote>
-        <ul id="submissions" ic-src="/${room.name}/submissions" ic-trigger-on="sse:update:submissions"></ul>
+        <button ic-post-to="/${room.name}/reveal">Reveal</button>
+        <div ic-get-from="/${room.name}/submissions/reset" ic-trigger-on="sse:submissions:reset">
+          ${reset(room)}
+        </div>
         <form ic-post-to="/${room.name}/submissions">
           <input type="text" name="name" placeholder="your name" required>
           <input type="number" name="score" required>

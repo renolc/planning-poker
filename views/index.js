@@ -5,7 +5,11 @@ module.exports = {
   room: {
     index: require('./room'),
     userCount: require('./room/userCount'),
-    submissions: require('./room/submissions'),
+    submissions: {
+      index: require('./room/submissions'),
+      reset: require('./room/submissions/reset'),
+    },
+    reveal: require('./room/reveal'),
     task: {
       index: require('./room/task'),
       inner: require('./room/task/inner'),
