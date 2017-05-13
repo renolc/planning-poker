@@ -1,1 +1,0 @@
-module.exports = (clients, ...rest) => [].concat(clients).forEach((i) => i.send.apply(i, rest))
