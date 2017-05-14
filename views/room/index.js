@@ -18,11 +18,6 @@ module.exports = (room) => `
         <div ic-get-from="/${room.name}/submissions/reset" ic-trigger-on="sse:submissions:reset">
           ${reset(room)}
         </div>
-        <form ic-post-to="/${room.name}/submissions">
-          <input type="text" name="name" placeholder="your name" required>
-          <input type="number" name="score" required>
-          <input type="submit">
-        </form>
       </div>
       <script src="/js/zepto.min.js"></script>
       <script src="/js/intercooler.js"></script>

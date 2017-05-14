@@ -88,7 +88,7 @@ app.post('/:name/submissions', (req, res) => {
     name: req.body.name,
     score: req.body.score
   })
-  res.send('')
+  res.send('  ')
   sendEventTo(room.clients, 'update:submissions')
 })
 
