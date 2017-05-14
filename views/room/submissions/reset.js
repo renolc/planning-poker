@@ -5,7 +5,15 @@ module.exports = (room) => `
     ${revealButton(room)}
   </div>
   <div ic-get-from="/${room.name}/scores" ic-trigger-on="sse:reveal">
-    <ul id="submissions" ic-src="/${room.name}/submissions" ic-trigger-on="sse:update:submissions"></ul>
+    <ul ic-src="/${room.name}/submissions" ic-trigger-on="sse:update:submissions"></ul>
+    <style>
+      ul > li.button {
+        background-color: #606c76;
+        border-color: #606c76;
+        cursor: default;
+        margin-right: 10px;
+      }
+    </style>
   </div>
   <form ic-post-to="/${room.name}/submissions" ic-replace-target="true">
     <input id="username" style="width: 250px" type="text" name="name" placeholder="your name" onkeyup="localStorage.setItem('username', this.value)" required><br>

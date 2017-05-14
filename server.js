@@ -15,7 +15,7 @@ const state = require('./helpers/state')
 
 app.get('/', (_, res) => res.sendFile(__dirname+'/views/home/index.html'))
 
-app.get('/sse', (req, res) => {
+app.get('/lobby/sse', (req, res) => {
   const client = SSE(req, res)
   state.homepageClients.push(client)
   client.onClose(() => {
@@ -94,13 +94,16 @@ app.post('/:name/submissions', (req, res) => {
 
 app.post('/:name/reveal', (req, res) => {
   const room = getOrCreateRoom(req)
-  res.send('')
+  res.send('  ')
   sendEventTo(room.clients, 'reveal')
+  sendEventTo(room.clients, 'clear:reveal:button')
 })
 
 app.get('/:name/reveal/enable', sendView(views.room.submissions.revealButton))
 
 app.get('/:name/scores', sendView(views.room.reveal))
+
+app.get('/clear/out', (_, res) => res.send('  '))
 
 //////////
 // 404 ///
