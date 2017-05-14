@@ -15,7 +15,6 @@ module.exports = (room) => `
           <h3 class="float-right" style="line-height: 55px;" ic-src="/${room.name}/user/count" ic-trigger-on="sse:update:user:count"></h3>
         </div>
         ${task(room)}
-        <button ic-post-to="/${room.name}/reveal">Reveal</button>
         <div ic-get-from="/${room.name}/submissions/reset" ic-trigger-on="sse:submissions:reset">
           ${reset(room)}
         </div>

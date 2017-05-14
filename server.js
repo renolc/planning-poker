@@ -98,6 +98,8 @@ app.post('/:name/reveal', (req, res) => {
   sendEventTo(room.clients, 'reveal')
 })
 
+app.get('/:name/reveal/enable', sendView(views.room.submissions.revealButton))
+
 app.get('/:name/scores', sendView(views.room.reveal))
 
 //////////

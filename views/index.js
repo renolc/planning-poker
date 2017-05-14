@@ -8,6 +8,7 @@ module.exports = {
     submissions: {
       index: require('./room/submissions'),
       reset: require('./room/submissions/reset'),
+      revealButton: require('./room/submissions/revealButton')
     },
     reveal: require('./room/reveal'),
     task: {
