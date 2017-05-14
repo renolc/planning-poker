@@ -12,7 +12,6 @@
   "dependencies": {
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "pouchdb-node": "^6.2.0",
     "sse-node": "^1.0.2"
   },
   "devDependencies": {
