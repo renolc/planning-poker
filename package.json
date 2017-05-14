@@ -2,6 +2,9 @@
   "name": "planning-poker",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": ">= 7.6.0"
+  },
   "scripts": {
     "start": "node server",
     "dev": "nodemon server"
