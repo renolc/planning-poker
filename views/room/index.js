@@ -21,11 +21,6 @@ module.exports = (room) => `
       </div>
       <script src="/js/zepto.min.js"></script>
       <script src="/js/intercooler.js"></script>
-      <script>
-        var source
-        setTimeout(function () { source = $('.container').data('ic-event-sse-source') }, 0)
-        window.onbeforeunload = function () { source.close() }
-      </script>
     </body>
   </html>
 `
