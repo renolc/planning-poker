@@ -13,8 +13,6 @@ const state = require('./helpers/state')
 // homepage  //
 ///////////////
 
-app.get('/', (_, res) => res.sendFile(__dirname+'/views/home/index.html'))
-
 app.get('/lobby/sse', (req, res) => {
   const client = SSE(req, res)
   state.homepageClients.push(client)
