@@ -9,9 +9,9 @@ const sendView = require('./helpers/sendView')
 const views = require('./views')
 const state = require('./helpers/state')
 
-///////////////
-// homepage  //
-///////////////
+//////////////
+// homepage //
+//////////////
 
 app.get('/lobby/sse', (req, res) => {
   const client = SSE(req, res)
