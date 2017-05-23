@@ -14,7 +14,7 @@ const state = require('./helpers/state')
 //////////////
 
 app.get('/lobby/sse', (req, res) => {
-  const client = SSE(req, res)
+  const client = SSE(req, res, { ping: 10 })
   state.homepageClients.push(client)
   client.onClose(() => {
     removeFromArray(state.homepageClients, client)
@@ -41,7 +41,7 @@ app.get('/:name', (req, res) => {
 })
 
 app.get('/:name/sse', (req, res) => {
-  const client = SSE(req, res)
+  const client = SSE(req, res, { ping: 10 })
   const room = getOrCreateRoom(req)
   room.clients.push(client)
   client.onClose(() => {
