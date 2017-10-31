@@ -9,11 +9,11 @@ module.exports = (rooms) => `
     </thead>
     <tbody>
       ${
-        rooms.map((room) => `
+        rooms.map(({ name, clients }) => `
           <tr>
-            <td>${room.name}</td>
-            <td>${room.clients.length}</td>
-            <td style="text-align: center"><a class="button" href="/${room.name}">Join</a></td>
+            <td>${name}</td>
+            <td>${clients.length}</td>
+            <td style="text-align: center"><a class="button" href="/${name}">Join</a></td>
           </tr>
         `).join('')
       }

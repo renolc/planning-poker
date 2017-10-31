@@ -1,1 +1,1 @@
-module.exports = (room) => `<blockquote style="padding: 1rem" ic-src="/${room.name}/task" ic-trigger-on="sse:update:task">${room.task ? room.task.replace(/\n/g, '<br>') : '<em>click to edit task</em>'}</blockquote>`
+module.exports = ({ name, task }) => `<blockquote style="padding: 1rem" ic-src="/${name}/task" ic-trigger-on="sse:update:task">${task ? task.replace(/\n/g, '<br>') : '<em>click to edit task</em>'}</blockquote>`

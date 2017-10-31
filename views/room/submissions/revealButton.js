@@ -1,8 +1,8 @@
-module.exports = (room) => `
+module.exports = ({ submissions, name }) => `
   <div ic-get-from="/clear/out" ic-trigger-on="sse:clear:reveal:button">
     <button class="button-outline" ${
-      room.submissions.length
-        ? `ic-post-to="/${room.name}/reveal"`
+      submissions.length
+        ? `ic-post-to="/${name}/reveal"`
         : 'disabled'
     }>Reveal</button>
   </div>
