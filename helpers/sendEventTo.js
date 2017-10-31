@@ -1,1 +1,1 @@
-module.exports = (clients, event) => [].concat(clients).forEach((i) => i.send('', event))
+module.exports = (clients, event) => [].concat(clients).forEach(({ send }) => send('', event))

@@ -1,7 +1,7 @@
-module.exports = (room) => `
+module.exports = ({ submissions }) => `
   <ul>
-    <li class="button button-primary"><strong>average</strong> - ${room.submissions.reduce((total, i) => total + parseInt(i.score, 10), 0) / room.submissions.length}</li><br>
-    ${room.submissions.map((i) => `<li class="button">${i.name} - ${i.score}</li>`).join('')}
+    <li class="button button-primary"><strong>average</strong> - ${submissions.reduce((total, { score }) => total + parseInt(score, 10), 0) / submissions.length}</li><br>
+    ${submissions.map(({ name, score }) => `<li class="button">${name} - ${score}</li>`).join('')}
   </ul>
   <style>
     ul > li.button {

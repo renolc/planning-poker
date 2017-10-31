@@ -1,7 +1,7 @@
-module.exports = (room) => `
-  <form id="task-edit-form" ic-post-to="/${room.name}/task" ic-replace-target="true">
-    <textarea style="height: 15rem" name="task" autofocus>${room.task || ''}</textarea>
-    <input id="save" type="submit" value="save"> <a id="cancel" class="button button-clear" ic-get-from="/${room.name}/task/full" ic-target="#task-edit-form" ic-replace-target="true">cancel</a>
+module.exports = ({ name, task }) => `
+  <form id="task-edit-form" ic-post-to="/${name}/task" ic-replace-target="true">
+    <textarea style="height: 15rem" name="task" autofocus>${task || ''}</textarea>
+    <input id="save" type="submit" value="save"> <a id="cancel" class="button button-clear" ic-get-from="/${name}/task/full" ic-target="#task-edit-form" ic-replace-target="true">cancel</a>
   </form>
   <script>
     const textarea = document.querySelector('textarea')

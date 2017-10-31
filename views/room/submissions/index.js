@@ -1,1 +1,1 @@
-module.exports = (room) => room.submissions.map((i) => `<li class="button">${i.name}</li>`).join('') || '  '
+module.exports = ({ submissions }) => submissions.map(({ name }) => `<li class="button">${name}</li>`).join('') || '  '

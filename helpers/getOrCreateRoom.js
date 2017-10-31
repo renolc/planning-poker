@@ -1,8 +1,8 @@
 const state = require('./state')
 const sendEventTo = require('./sendEventTo')
 
-module.exports = (req) => {
-  const { name } = req.params
+module.exports = ({ params }) => {
+  const { name } = params
   let room = state.rooms.find((i) => i.name === name)
   if (!room) {
     room = {
